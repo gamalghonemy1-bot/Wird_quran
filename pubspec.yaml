@@ -1,0 +1,17 @@
+name: wird_daily
+description: الورد القرآني اليومي
+publish_to: none
+version: 1.0.0+1
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.2.2
+  shared_preferences: ^2.3.2
+  path_provider: ^2.1.4
+  just_audio: ^0.9.40
+  flutter_local_notifications: 17.2.4
+  timezone: ^0.9.4
+flutter:
+  uses-material-design: true
