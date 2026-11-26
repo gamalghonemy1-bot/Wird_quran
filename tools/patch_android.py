@@ -27,9 +27,12 @@ for f in ['android/app/build.gradle.kts', 'android/app/build.gradle']:
     if f.endswith('.kts'):
         t = re.sub(r'compileOptions\s*\{', 'compileOptions {\n        isCoreLibraryDesugaringEnabled = true', t, 1)
         t += '\ndependencies {\n    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")\n}\n'
+        # إيقاف R8: يكسر مكتبة الإشعارات المجدولة (Missing type parameter)
+        t = re.sub(r'(buildTypes\s*\{\s*release\s*\{)', r'\1\n            isMinifyEnabled = false\n            isShrinkResources = false', t, 1)
     else:
         t = re.sub(r'compileOptions\s*\{', 'compileOptions {\n        coreLibraryDesugaringEnabled true', t, 1)
         t += "\ndependencies {\n    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'\n}\n"
+        t = re.sub(r'(buildTypes\s*\{\s*release\s*\{)', r'\1\n            minifyEnabled false\n            shrinkResources false', t, 1)
     open(f, 'w', encoding='utf-8').write(t)
 
 # السماح بظهور التطبيق فوق شاشة القفل عند التنبيه
